@@ -1,0 +1,58 @@
+.output "README.md"
+.template 1
+[![Build Status on Travis CI](https://travis-ci.org/paddor/em-simple_telnet_server.svg?branch=master)](https://travis-ci.org/paddor/em-simple_telnet_server?branch=master)
+
+# SimpleTelnetServer
+
+This gem provides a simple way to implement your own telnet server. It's useful
+for example if you want to mock a telnet server in your telnet-related
+integration tests.
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'em-simple_telnet_server'
+```
+
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install em-simple_telnet_server
+
+## Usage
+
+Here's an example, right from [test/fake_machine.rb](https://github.com/paddor/em-simple_telnet_server/blob/master/test/fake_machine.rb).
+
+```ruby
+.include "test/fake_machine.rb"
+```
+
+You can run it as follows. By default, it'll start listening on "localhost" and port 10023.
+
+```ruby
+EventMachine.run do
+  FakeMachine.start_server
+end
+```
+
+## Development
+
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/paddor/em-simple_telnet_server.
+
+
+## License
+
+The gem is available as open source under the terms of the [ISC License](http://opensource.org/licenses/ISC).
+See the [LICENSE](https://github.com/paddor/em-simple_telnet_server/blob/master/LICENSE) file.
+.endtemplate
