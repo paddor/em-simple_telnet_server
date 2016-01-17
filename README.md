@@ -37,8 +37,10 @@ class FakeMachine < SimpleTelnetServer::Connection
   include SimpleTelnetServer::HasLogin
 
   has_option :command_prompt, "fake$ "
-  has_option :login_prompt, "fakelogin: "
-  has_option :password_prompt, "fakepassword: "
+  has_option :login_prompt, "
+fakelogin: "
+  has_option :password_prompt, "
+fakepassword: "
 
   has_login "fakeuser", "fakepass" # default is ":user" role
   has_login "fakeroot", "fakerootpass", role: :admin
@@ -54,7 +56,9 @@ class FakeMachine < SimpleTelnetServer::Connection
   # This is the callback that is called right after authorization. You could
   # initialize your code here.
   def on_authorization
-    send_output "Hello #{entered_username}! You're authorized now."
+    send_data "Hello #{entered_username}! You're authorized now.
+"
+    # NOTE: first command prompt is sent automatically after this
   end
 
   # Just to demonstrate the ability to use methods as command actions instead
@@ -62,13 +66,14 @@ class FakeMachine < SimpleTelnetServer::Connection
   # is called.  It also supports commands in the form of "count up 5".
   #
   # See the call to {.has_command} below.
-  def count_up(step)
+  def count_up(step=nil)
     step ||= 1
+    step = Integer step
     @count_up_number ||= 0
     @count_up_number += step
     send_output "The new number is #@count_up_number."
   end
-  has_command("count up(?:s+(d+))", :count_up)
+  has_command(/count up(?:s+(d+))/, :count_up)
 
   # Simulates a slow command which could be used to test timeouts.
   # This can be invoked using "slow command".
